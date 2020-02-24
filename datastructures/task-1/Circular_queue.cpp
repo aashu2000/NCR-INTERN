@@ -9,6 +9,7 @@ struct Node {
 };
 Node* front = NULL;
 Node* rear = NULL;
+static int n;
 void enqueue(int val){
    Node* newnode = new Node;
    newnode->data = val;
@@ -18,12 +19,17 @@ void enqueue(int val){
        front = rear = newnode;
        rear->next = front;
    }
+   else if (n==0)
+   {
+       cout << "Queue is full" << endl;
+   }
    else
    {
        rear->next = newnode;
        rear = newnode;
        rear->next = front;
    }
+
 }
 void dequeue()
 {
@@ -37,11 +43,13 @@ void dequeue()
         front = NULL;
         rear = NULL;
         delete(temp);
+        n = n + 1;
     }
     else {
         front = front->next;
         rear->next = front;
         delete(temp);
+        n = n + 1;
     }
 }
 void peek()
@@ -74,7 +82,7 @@ void display()
 
 int main()
 {
-    int ch, val,n;
+    int ch, val;
     cout << "enter the no of elements to be in the queue" << endl;
     cin >> n;
     do {
@@ -89,11 +97,16 @@ int main()
                 enqueue(val);
                 n = n - 1;
             }
-            display();
+            //display();
+            if (n == 0)
+            {
+                cout << "Queue is full" << endl;
+            }
             break;
         }
         case 2: {
             cout << "dequeue operation" << endl;
+            //n = n - 1;
             dequeue();
             break;
         }
